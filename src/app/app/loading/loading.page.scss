@@ -1,0 +1,106 @@
+/* Fondo con un degradado elegante y moderno para un banco digital */
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background: linear-gradient(135deg, #2c3e50, #4ca1af); /* Degradado elegante */
+    color: white;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  
+  .content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 20px;
+    background: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Sombra para un efecto de profundidad */
+    animation: fadeIn 1s ease-in-out; /* Animación de aparición */
+  }
+  
+  .logo {
+    width: 180px; /* Ajusta el tamaño de tu logo */
+    margin-bottom: 30px;
+    animation: bounce 2s infinite; /* Efecto de rebote en el logo */
+  }
+  
+  /* Estilo para el título (Bienvenido a BankNet) */
+  h1 {
+    font-size: 3rem; /* Tamaño más grande para el mensaje */
+    font-weight: bold;
+    margin-bottom: 25px;
+    font-family: 'Roboto', sans-serif; /* Tipografía moderna y limpia */
+    letter-spacing: 1px; /* Espaciado entre letras */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra en el texto */
+  }
+  
+  /* Estilo para el spinner */
+  .loading-spinner {
+    font-size: 50px; /* Tamaño grande del spinner */
+    margin-bottom: 20px;
+    color: #f39c12; /* Color brillante para el spinner */
+    animation: spin 1s linear infinite; /* Efecto de rotación del spinner */
+  }
+  
+  /* Estilo para el texto de carga */
+  p {
+    font-size: 1.5rem;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif; /* Tipografía moderna y limpia */
+    margin-top: 15px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Sombra en el texto */
+  }
+  
+  /* Efectos de animación */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-15px);
+    }
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* Responsividad */
+  @media (max-width: 576px) {
+    .logo {
+      width: 150px; /* Tamaño más pequeño para pantallas pequeñas */
+    }
+  
+    h1 {
+      font-size: 2.5rem; /* Tamaño más pequeño para pantallas pequeñas */
+    }
+  
+    p {
+      font-size: 1.2rem; /* Tamaño más pequeño para pantallas pequeñas */
+    }
+  
+    .loading-spinner {
+      font-size: 40px; /* Tamaño más pequeño para pantallas pequeñas */
+    }
+  }
+  
