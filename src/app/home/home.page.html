@@ -1,20 +1,63 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Bienvenido a BankNet</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ nombre }} {{ apellido }}</ion-card-title>
+      <ion-card-subtitle>Saldo actual</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <h2>${{ saldo | number:'1.2-2' }}</h2>
+    </ion-card-content>
+  </ion-card>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <!-- Menú horizontal -->
+  <ion-segment>
+    <ion-segment-button>
+      <ion-label>Servicios</ion-label>
+    </ion-segment-button>
+    <ion-segment-button>
+      <ion-label>Movimientos</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-list>
+    <!-- Botón desplegable de acciones -->
+    <ion-item>
+      <ion-label>Acciones</ion-label>
+      <ion-button fill="outline" slot="end" (click)="mostrarAcciones = !mostrarAcciones">
+        Opciones
+      </ion-button>
+    </ion-item>
+    <ion-list *ngIf="mostrarAcciones">
+      <ion-item button (click)="irATransferencia()">Transferir Dinero</ion-item>
+      <ion-item button (click)="irARetiro()">Retirar Dinero</ion-item>
+    </ion-list>
+
+    <!-- Botón desplegable de configuración -->
+    <ion-item>
+      <ion-label>Configuración</ion-label>
+      <ion-button fill="outline" slot="end" (click)="mostrarConfiguracion = !mostrarConfiguracion">
+        Configurar
+      </ion-button>
+    </ion-item>
+    <ion-list *ngIf="mostrarConfiguracion">
+      <ion-item button (click)="actualizar()">Actualizar</ion-item>
+      <ion-item button (click)="eliminar()">Eliminar</ion-item>
+      <ion-item button (click)="soporte()">Soporte</ion-item>
+    </ion-list>
+
+    <!-- Botón de logout -->
+    <ion-item>
+      <ion-label>Salir</ion-label>
+      <ion-button fill="outline" slot="end" (click)="logout()">
+        Logout
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
 </ion-content>

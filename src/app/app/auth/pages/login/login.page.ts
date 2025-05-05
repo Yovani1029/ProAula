@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController, ToastController, LoadingController } from '@ionic/angular';
 import { AuthService } from 'src/app/app/core/services/auth.service';
+import { UsuarioService } from 'src/app/app/core/services/usuario.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginPage {
     private navCtrl: NavController,
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
-    private authService: AuthService
+    private authService: AuthService,
+    private usuarioService: UsuarioService // ✅ Inyectamos el servicio de usuario
   ) {
     this.loginForm = this.fb.group({
       telefono: ['', [Validators.required]],
@@ -26,13 +28,10 @@ export class LoginPage {
     });
   }
 
-  // Se ejecuta en cada input de la contraseña
   onPasswordInput(event: any) {
     const value: string = event.detail.value;
     if (value.length > 4) {
-      // Trunca a 4 dígitos
       this.loginForm.get('contrasena')?.setValue(value.substring(0, 4), { emitEvent: false });
-      // Mostrar alerta/toast
       this.showToast('La contraseña debe tener solo 4 dígitos.');
     }
   }
@@ -52,6 +51,10 @@ export class LoginPage {
       next: async (usuario) => {
         await loading.dismiss();
         if (usuario) {
+          this.usuarioService.setUsuarioActual(usuario);
+
+          localStorage.setItem('idUsuario', usuario.id.toString());
+
           this.showToast(`Bienvenido ${usuario.nombre} ${usuario.apellido}`, 'success');
           this.navCtrl.navigateRoot('/home');
         } else {
