@@ -1,0 +1,144 @@
+/* Estilos Generales */
+ion-content {
+    --background: #f4f6f9; /* Fondo suave para el formulario */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  /* Contenedor de la página de registro */
+  .page-register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  /* Contenedor principal del formulario */
+  .register-container {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px; /* Aumenté el max-width para pantallas grandes */
+    text-align: center;
+  }
+  
+  /* Título */
+  h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #1e3d58; /* Color primario del banco */
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  /* Estilo del formulario */
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Estilo de los inputs */
+  ion-input {
+    margin-bottom: 20px;
+    --padding-start: 12px;
+    --padding-end: 12px;
+    --padding-top: 8px;
+    --padding-bottom: 8px;
+    border: 1px solid #d1d8e1;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+  
+  ion-input[readonly] {
+    background-color: #f4f6f9;
+  }
+  
+  /* Estilo del botón */
+  ion-button {
+    margin-top: 20px;
+    background: #1e3d58; /* Color de fondo primario */
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    transition: background 0.3s ease;
+  }
+  
+  ion-button:hover {
+    background: #164b6b; /* Color hover */
+  }
+  
+  /* Etiquetas */
+  ion-label {
+    color: #1e3d58;
+    font-weight: 600;
+  }
+  
+  /* Validación de los inputs */
+  ion-input.invalid {
+    border-color: #e74c3c;
+  }
+  
+  ion-note {
+    color: #e74c3c;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  /* Estilos para la validación de los formularios */
+  input.ng-invalid.ng-touched {
+    border: 1px solid red;
+  }
+  
+  input.ng-valid.ng-touched {
+    border: 1px solid green;
+  }
+  
+  /* Estilos Responsive */
+  @media (max-width: 576px) {
+    .register-container {
+      padding: 20px;
+      width: 100%; /* Asegura que el contenedor sea completamente responsivo */
+    }
+  
+    h1 {
+      font-size: 1.5rem;
+    }
+  
+    ion-button {
+      font-size: 14px;
+    }
+  
+    ion-input {
+      font-size: 14px; /* Reducir el tamaño de los inputs en pantallas pequeñas */
+    }
+  
+    ion-note {
+      font-size: 12px; /* Hacer las notas de validación más pequeñas */
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .register-container {
+      width: 450px; /* Tamaño fijo para PC */
+      padding: 40px;
+    }
+  
+    h1 {
+      font-size: 2.5rem; 
+    }
+  
+    ion-input {
+      font-size: 18px; 
+    }
+  
+    ion-button {
+      font-size: 16px; 
+    }
+  }
+  

@@ -1,0 +1,132 @@
+/* Fondo de la página */
+ion-content {
+    --background: linear-gradient(135deg, #1e3c72, #2a5298);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  /* Contenedor principal */
+  .login-container {
+    width: 100%;
+    max-width: 450px;  /* Ajuste del tamaño máximo para PC */
+    background: #fff;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .logo {
+    width: 120px;
+    margin-bottom: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    color: #1e3c72;
+    margin-bottom: 1.5rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Estilo para los ion-items (campos de formulario) */
+  ion-item {
+    --border-radius: 10px;
+    margin-bottom: 1rem;
+  }
+  
+  ion-input {
+    --padding-start: 10px;
+  }
+  
+  ion-button {
+    --background: #1e3c72;
+    --background-hover: #16335e;
+    --border-radius: 12px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    margin-top: 1.5rem;
+    color: #fff;
+  }
+  
+  ion-button[disabled] {
+    --background: #a0b0c0;
+  }
+  
+  .register-link {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  .register-link a {
+    color: #1e3c72;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  
+  /* Mensajes de error */
+  ion-text {
+    margin-top: 0.5rem;
+  }
+  
+  ion-text small {
+    font-size: 0.875rem;
+    color: #d9534f;
+  }
+  
+  /* Responsividad para dispositivos móviles */
+  @media (max-width: 768px) {
+    .login-container {
+      padding: 1.5rem;
+    }
+    .logo {
+      width: 100px;
+    }
+    h2 {
+      font-size: 1.25rem;
+    }
+    .subtitle {
+      font-size: 0.9rem;
+    }
+    ion-input {
+      font-size: 0.875rem;
+    }
+    ion-button {
+      font-size: 1rem;
+    }
+  }
+  
+  /* Responsividad para pantallas grandes (PC) */
+  @media (min-width: 1024px) {
+    .login-container {
+      width: 450px;  /* Tamaño fijo para PC */
+      padding: 3rem;
+    }
+  
+    h2 {
+      font-size: 2rem;
+    }
+  
+    .subtitle {
+      font-size: 1.1rem;
+    }
+  
+    ion-input {
+      font-size: 1rem;
+    }
+  
+    ion-button {
+      font-size: 1.1rem;
+    }
+  
+    .register-link {
+      font-size: 1rem;
+    }
+  }
+  

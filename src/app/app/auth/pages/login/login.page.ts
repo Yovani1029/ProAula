@@ -22,8 +22,19 @@ export class LoginPage {
   ) {
     this.loginForm = this.fb.group({
       telefono: ['', [Validators.required]],
-      contrasena: ['', [Validators.required, Validators.minLength(6)]],
+      contrasena: ['', [Validators.required, Validators.pattern('^[0-9]{4}$')]],
     });
+  }
+
+  // Se ejecuta en cada input de la contraseña
+  onPasswordInput(event: any) {
+    const value: string = event.detail.value;
+    if (value.length > 4) {
+      // Trunca a 4 dígitos
+      this.loginForm.get('contrasena')?.setValue(value.substring(0, 4), { emitEvent: false });
+      // Mostrar alerta/toast
+      this.showToast('La contraseña debe tener solo 4 dígitos.');
+    }
   }
 
   async onSubmit() {
@@ -57,7 +68,7 @@ export class LoginPage {
   async showToast(message: string, color: string = 'danger') {
     const toast = await this.toastCtrl.create({
       message,
-      duration: 3000,
+      duration: 2000,
       position: 'bottom',
       color,
     });
