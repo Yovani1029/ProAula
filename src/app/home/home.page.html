@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="ion-padding" style="padding-bottom: 100px;">
   <ion-card>
     <ion-card-header>
       <ion-card-title>{{ nombre }} {{ apellido }}</ion-card-title>
@@ -15,49 +15,53 @@
     </ion-card-content>
   </ion-card>
 
-  <!-- Menú horizontal -->
-  <ion-segment>
-    <ion-segment-button>
-      <ion-label>Servicios</ion-label>
-    </ion-segment-button>
-    <ion-segment-button>
-      <ion-label>Movimientos</ion-label>
-    </ion-segment-button>
-  </ion-segment>
+  <div class="actions-grid">
+    <ion-button class="action-button" (click)="irATransferencia()" aria-label="Transferir dinero">
+      <ion-icon name="swap-horizontal" slot="start" aria-hidden="true"></ion-icon>
+      Transferir
+    </ion-button>
+    <ion-button class="action-button" (click)="irARetiro()" aria-label="Retirar dinero">
+      <ion-icon name="cash" slot="start" aria-hidden="true"></ion-icon>
+      Retirar
+    </ion-button>
+    <ion-button class="action-button" (click)="mostrarConfiguracion = !mostrarConfiguracion" aria-label="Configuración">
+      <ion-icon name="settings" slot="start" aria-hidden="true"></ion-icon>
+      Configuración
+    </ion-button>
+    <ion-button class="action-button" (click)="soporte()" aria-label="Soporte técnico">
+      <ion-icon name="help-circle" slot="start" aria-hidden="true"></ion-icon>
+      Soporte
+    </ion-button>
+  </div>
 
-  <ion-list>
-    <!-- Botón desplegable de acciones -->
-    <ion-item>
-      <ion-label>Acciones</ion-label>
-      <ion-button fill="outline" slot="end" (click)="mostrarAcciones = !mostrarAcciones">
-        Opciones
-      </ion-button>
+  <ion-list *ngIf="mostrarConfiguracion" class="config-list">
+    <ion-item button (click)="actualizar()">
+      <ion-icon name="refresh" slot="start"></ion-icon>
+      Actualizar datos
     </ion-item>
-    <ion-list *ngIf="mostrarAcciones">
-      <ion-item button (click)="irATransferencia()">Transferir Dinero</ion-item>
-      <ion-item button (click)="irARetiro()">Retirar Dinero</ion-item>
-    </ion-list>
-
-    <!-- Botón desplegable de configuración -->
-    <ion-item>
-      <ion-label>Configuración</ion-label>
-      <ion-button fill="outline" slot="end" (click)="mostrarConfiguracion = !mostrarConfiguracion">
-        Configurar
-      </ion-button>
-    </ion-item>
-    <ion-list *ngIf="mostrarConfiguracion">
-      <ion-item button (click)="actualizar()">Actualizar</ion-item>
-      <ion-item button (click)="eliminar()">Eliminar</ion-item>
-      <ion-item button (click)="soporte()">Soporte</ion-item>
-    </ion-list>
-
-    <!-- Botón de logout -->
-    <ion-item>
-      <ion-label>Salir</ion-label>
-      <ion-button fill="outline" slot="end" (click)="logout()">
-        Logout
-      </ion-button>
+    <ion-item button (click)="confirmarEliminar()" color="danger">
+      <ion-icon name="trash" slot="start"></ion-icon>
+      Eliminar cuenta
     </ion-item>
   </ion-list>
 
+  <ion-item class="logout-item">
+    <ion-button class="logout-button" fill="outline" expand="block" (click)="confirmLogout()">
+      <ion-icon name="log-out" slot="start"></ion-icon>
+      Cerrar sesión
+    </ion-button>
+  </ion-item>
+
+  <div class="footer-segment">
+    <ion-segment>
+      <ion-segment-button>
+        <ion-icon name="apps" aria-hidden="true"></ion-icon>
+        <ion-label>Servicios</ion-label>
+      </ion-segment-button>
+      <ion-segment-button>
+        <ion-icon name="list" aria-hidden="true"></ion-icon>
+        <ion-label>Movimientos</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
 </ion-content>
