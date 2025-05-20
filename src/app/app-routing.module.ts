@@ -25,6 +25,13 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: () => import('./app/auth/pages/register/register.module').then(m => m.RegisterPageModule)
+<<<<<<< HEAD
+=======
+  },
+  {
+    path: 'transferencia',
+    loadChildren: () => import('./app/auth/pages/transferencia/transferencia/transferencia.module').then( m => m.TransferenciaPageModule)
+>>>>>>> 6a04252 (nuevo commit)
   }
   
 ];

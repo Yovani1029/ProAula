@@ -29,6 +29,10 @@
     "@ionic/angular": "^8.0.0",
     "ionicons": "^7.0.0",
     "rxjs": "~7.8.0",
+<<<<<<< HEAD
+=======
+    "sweetalert2": "^11.21.2",
+>>>>>>> 6a04252 (nuevo commit)
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
   },

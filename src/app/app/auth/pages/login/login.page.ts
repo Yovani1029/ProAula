@@ -20,7 +20,11 @@ export class LoginPage {
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
     private authService: AuthService,
+<<<<<<< HEAD
     private usuarioService: UsuarioService // ✅ Inyectamos el servicio de usuario
+=======
+    private usuarioService: UsuarioService
+>>>>>>> 6a04252 (nuevo commit)
   ) {
     this.loginForm = this.fb.group({
       telefono: ['', [Validators.required]],
@@ -54,6 +58,11 @@ export class LoginPage {
           this.usuarioService.setUsuarioActual(usuario);
 
           localStorage.setItem('idUsuario', usuario.id.toString());
+<<<<<<< HEAD
+=======
+          localStorage.setItem('telefono', usuario.telefono);
+
+>>>>>>> 6a04252 (nuevo commit)
 
           this.showToast(`Bienvenido ${usuario.nombre} ${usuario.apellido}`, 'success');
           this.navCtrl.navigateRoot('/home');
