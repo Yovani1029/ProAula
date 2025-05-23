@@ -5,41 +5,74 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'loading',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'loading',
     loadChildren: () =>
-      import('./app/loading/loading.module').then(m => m.LoadingPageModule)
+      import('./app/loading/loading.module').then((m) => m.LoadingPageModule),
   },
   {
     path: 'login',
     loadChildren: () =>
-      import('./app/auth/pages/login/login.module').then(m => m.LoginPageModule)
+      import('./app/auth/pages/login/login.module').then(
+        (m) => m.LoginPageModule
+      ),
   },
   {
     path: 'home',
     loadChildren: () =>
-      import('./home/home.module').then(m => m.HomePageModule)
+      import('./home/home.module').then((m) => m.HomePageModule),
+  },
+  {
+    path: 'factura',
+    loadChildren: () =>
+      import('./app/auth/pages/factura/factura.module').then(
+        (m) => m.FacturaPageModule
+      ),
+  },
+  {
+    path: 'registrar-factura',
+    loadChildren: () =>
+      import(
+        './app/auth/pages/factura/registrar-factura/registrar-factura.module'
+      ).then((m) => m.RegistrarFacturaPageModule),
+  },
+  {
+    path: 'pagar-factura',
+    loadChildren: () =>
+      import(
+        './app/auth/pages/factura/pagar-factura/pagar-factura.module'
+      ).then((m) => m.PagarFacturaPageModule),
   },
   {
     path: 'register',
-    loadChildren: () => import('./app/auth/pages/register/register.module').then(m => m.RegisterPageModule)
-<<<<<<< HEAD
-=======
+    loadChildren: () =>
+      import('./app/auth/pages/register/register.module').then(
+        (m) => m.RegisterPageModule
+      ),
   },
   {
+    path: 'editar-usuario',
+    loadChildren: () =>
+      import('./app/auth/pages/editar-usuario/editar-usuario.module').then(
+        (m) => m.EditarUsuarioPageModule
+      ),
+  },
+
+  {
     path: 'transferencia',
-    loadChildren: () => import('./app/auth/pages/transferencia/transferencia/transferencia.module').then( m => m.TransferenciaPageModule)
->>>>>>> 6a04252 (nuevo commit)
-  }
-  
+    loadChildren: () =>
+      import(
+        './app/auth/pages/transferencia/transferencia/transferencia.module'
+      ).then((m) => m.TransferenciaPageModule),
+  },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

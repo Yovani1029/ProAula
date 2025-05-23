@@ -1,0 +1,29 @@
+<form [formGroup]="formFactura" (ngSubmit)="registrarFactura()">
+  <ion-item>
+    <ion-label>Servicio</ion-label>
+    <ion-select formControlName="servicio">
+      <ion-select-option value="luz">Luz</ion-select-option>
+      <ion-select-option value="agua">Agua</ion-select-option>
+      <ion-select-option value="internet">Internet</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item *ngIf="formFactura.value.servicio === 'luz'">
+    <ion-label>NIC</ion-label>
+    <ion-input formControlName="nic" type="text"></ion-input>
+  </ion-item>
+
+  <ion-item *ngIf="formFactura.value.servicio === 'agua'">
+    <ion-label>ID Agua</ion-label>
+    <ion-input formControlName="id_agua" type="number"></ion-input>
+  </ion-item>
+
+  <ion-item *ngIf="formFactura.value.servicio === 'internet'">
+    <ion-label>ID Internet</ion-label>
+    <ion-input formControlName="id_internet" type="number"></ion-input>
+  </ion-item>
+
+  <ion-button expand="full" type="submit" [disabled]="formFactura.invalid">
+    Registrar Factura
+  </ion-button>
+</form>

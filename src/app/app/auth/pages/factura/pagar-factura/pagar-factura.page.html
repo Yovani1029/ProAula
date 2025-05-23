@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Pagar Factura</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list *ngIf="facturasPendientes.length > 0; else sinFacturas">
+    <ion-item *ngFor="let factura of facturasPendientes">
+      <ion-label>
+        <h2>{{ factura.servicio | titlecase }}</h2>
+        <p>ID: {{ factura.idServicio }} - Monto: ${{ factura.monto }}</p>
+        <p>Fecha límite: {{ factura.fechaLimite }}</p>
+        <p>Estado: {{ factura.estado }}</p>
+      </ion-label>
+      <ion-button color="success" (click)="pagarFactura(factura)"
+        >Pagar</ion-button
+      >
+    </ion-item>
+  </ion-list>
+
+  <ng-template #sinFacturas>
+    <ion-text color="medium">
+      <p>No tienes facturas pendientes.</p>
+    </ion-text>
+  </ng-template>
+</ion-content>

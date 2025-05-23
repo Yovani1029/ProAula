@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavController, ToastController, LoadingController } from '@ionic/angular';
+import {
+  NavController,
+  ToastController,
+  LoadingController,
+} from '@ionic/angular';
 import { AuthService } from 'src/app/app/core/services/auth.service';
 import { UsuarioService } from 'src/app/app/core/services/usuario.service';
 
@@ -8,7 +12,7 @@ import { UsuarioService } from 'src/app/app/core/services/usuario.service';
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
-  standalone: false
+  standalone: false,
 })
 export class LoginPage {
   loginForm: FormGroup;
@@ -20,11 +24,7 @@ export class LoginPage {
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
     private authService: AuthService,
-<<<<<<< HEAD
-    private usuarioService: UsuarioService // ✅ Inyectamos el servicio de usuario
-=======
     private usuarioService: UsuarioService
->>>>>>> 6a04252 (nuevo commit)
   ) {
     this.loginForm = this.fb.group({
       telefono: ['', [Validators.required]],
@@ -35,7 +35,9 @@ export class LoginPage {
   onPasswordInput(event: any) {
     const value: string = event.detail.value;
     if (value.length > 4) {
-      this.loginForm.get('contrasena')?.setValue(value.substring(0, 4), { emitEvent: false });
+      this.loginForm
+        .get('contrasena')
+        ?.setValue(value.substring(0, 4), { emitEvent: false });
       this.showToast('La contraseña debe tener solo 4 dígitos.');
     }
   }
@@ -46,7 +48,9 @@ export class LoginPage {
       return;
     }
 
-    const loading = await this.loadingCtrl.create({ message: 'Iniciando sesión...' });
+    const loading = await this.loadingCtrl.create({
+      message: 'Iniciando sesión...',
+    });
     await loading.present();
 
     const { telefono, contrasena } = this.loginForm.value;
@@ -58,13 +62,13 @@ export class LoginPage {
           this.usuarioService.setUsuarioActual(usuario);
 
           localStorage.setItem('idUsuario', usuario.id.toString());
-<<<<<<< HEAD
-=======
+
           localStorage.setItem('telefono', usuario.telefono);
 
->>>>>>> 6a04252 (nuevo commit)
-
-          this.showToast(`Bienvenido ${usuario.nombre} ${usuario.apellido}`, 'success');
+          this.showToast(
+            `Bienvenido ${usuario.nombre} ${usuario.apellido}`,
+            'success'
+          );
           this.navCtrl.navigateRoot('/home');
         } else {
           this.showToast('Teléfono o contraseña incorrectos.');
