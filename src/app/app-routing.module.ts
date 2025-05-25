@@ -67,6 +67,10 @@ const routes: Routes = [
         './app/auth/pages/transferencia/transferencia/transferencia.module'
       ).then((m) => m.TransferenciaPageModule),
   },
+  {
+    path: 'depositar',
+    loadChildren: () => import('./app/auth/pages/depositar/depositar.module').then( m => m.DepositarPageModule)
+  },
 ];
 
 @NgModule({

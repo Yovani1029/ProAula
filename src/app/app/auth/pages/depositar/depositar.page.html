@@ -1,0 +1,46 @@
+<ion-content>
+  <ion-card>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button defaultHref="/home"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Depositar Dinero</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-card-content>
+      <form [formGroup]="depositoForm" (ngSubmit)="realizarDeposito()">
+        <ion-item>
+          <ion-label position="floating">Teléfono</ion-label>
+          <ion-input formControlName="telefono" readonly></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Monto</ion-label>
+          <ion-input 
+            type="number" 
+            formControlName="monto" 
+            inputmode="decimal"
+            min="1">
+          </ion-input>
+        </ion-item>
+
+        <ion-note *ngIf="depositoForm.get('monto')?.hasError('required') && depositoForm.get('monto')?.touched" color="danger">
+          El monto es requerido
+        </ion-note>
+        <ion-note *ngIf="depositoForm.get('monto')?.hasError('min') && depositoForm.get('monto')?.touched" color="danger">
+          El monto mínimo es 1
+        </ion-note>
+
+        <ion-button 
+          expand="full" 
+          type="submit" 
+          [disabled]="depositoForm.invalid || cargando">
+          
+          <ion-spinner *ngIf="cargando"></ion-spinner>
+          <span *ngIf="!cargando">Depositar</span>
+        </ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

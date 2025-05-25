@@ -86,6 +86,9 @@ export class HomePage {
   soporte() {
     this.navCtrl.navigateForward('/soporte');
   }
+    depositar() {
+    this.navCtrl.navigateForward('/depositar');
+  }
 
   async confirmLogout() {
     const alert = await this.alertCtrl.create({
