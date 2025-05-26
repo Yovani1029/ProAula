@@ -1,29 +1,48 @@
-<form [formGroup]="formFactura" (ngSubmit)="registrarFactura()">
-  <ion-item>
-    <ion-label>Servicio</ion-label>
-    <ion-select formControlName="servicio">
-      <ion-select-option value="luz">Luz</ion-select-option>
-      <ion-select-option value="agua">Agua</ion-select-option>
-      <ion-select-option value="internet">Internet</ion-select-option>
-    </ion-select>
-  </ion-item>
+<ion-content>
+  <ion-card>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button defaultHref="/factura"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Registrar Factura</ion-title>
+      </ion-toolbar>
+    </ion-header>
 
-  <ion-item *ngIf="formFactura.value.servicio === 'luz'">
-    <ion-label>NIC</ion-label>
-    <ion-input formControlName="nic" type="text"></ion-input>
-  </ion-item>
+    <ion-card-content>
+      <form [formGroup]="formFactura" (ngSubmit)="registrarFactura()">
+        <ion-item>
+          <ion-label position="floating">Servicio</ion-label>
+          <ion-select formControlName="servicio">
+            <ion-select-option value="luz">Luz</ion-select-option>
+            <ion-select-option value="agua">Agua</ion-select-option>
+            <ion-select-option value="internet">Internet</ion-select-option>
+          </ion-select>
+        </ion-item>
 
-  <ion-item *ngIf="formFactura.value.servicio === 'agua'">
-    <ion-label>ID Agua</ion-label>
-    <ion-input formControlName="id_agua" type="number"></ion-input>
-  </ion-item>
+        <ion-item *ngIf="formFactura.value.servicio === 'luz'">
+          <ion-label position="floating">NIC</ion-label>
+          <ion-input formControlName="nic" type="text"></ion-input>
+        </ion-item>
 
-  <ion-item *ngIf="formFactura.value.servicio === 'internet'">
-    <ion-label>ID Internet</ion-label>
-    <ion-input formControlName="id_internet" type="number"></ion-input>
-  </ion-item>
+        <ion-item *ngIf="formFactura.value.servicio === 'agua'">
+          <ion-label position="floating">ID Agua</ion-label>
+          <ion-input formControlName="id_agua" type="number"></ion-input>
+        </ion-item>
 
-  <ion-button expand="full" type="submit" [disabled]="formFactura.invalid">
-    Registrar Factura
-  </ion-button>
-</form>
+        <ion-item *ngIf="formFactura.value.servicio === 'internet'">
+          <ion-label position="floating">ID Internet</ion-label>
+          <ion-input formControlName="id_internet" type="number"></ion-input>
+        </ion-item>
+
+        <ion-button
+          expand="full"
+          type="submit"
+          [disabled]="formFactura.invalid"
+        >
+          Registrar Factura
+        </ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
