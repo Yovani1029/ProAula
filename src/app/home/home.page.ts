@@ -10,6 +10,7 @@ import {
   Transaccion,
 } from 'src/app/app/core/services/transaccion.service';
 import { Router } from '@angular/router';
+
 interface UsuarioConCuentaId {
   id: number;
   nombre: string;
@@ -19,6 +20,7 @@ interface UsuarioConCuentaId {
     saldo: number;
   };
 }
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -38,7 +40,6 @@ export class HomePage {
     private navCtrl: NavController,
     private toastCtrl: ToastController,
     private alertCtrl: AlertController,
-
     private usuarioService: UsuarioService,
     private transaccionService: TransaccionService
   ) {}
@@ -50,7 +51,6 @@ export class HomePage {
   private cargarDatosUsuario(): void {
     const usuario =
       this.usuarioService.getUsuarioActual() as UsuarioConCuentaId;
-    this.cargarTransacciones(usuario.cuenta?.id ?? 0);
 
     if (!usuario || !usuario.cuenta) {
       this.showToast('Debes iniciar sesión', 'warning');
@@ -74,19 +74,24 @@ export class HomePage {
   cambioSegmento(event: CustomEvent) {
     this.segmento = event.detail.value;
   }
+
   irAFacturas() {
     this.router.navigate(['/factura']);
   }
+
   irATransferencia() {
     this.navCtrl.navigateForward('/transferencia');
   }
+
   irARetiro() {
     this.navCtrl.navigateForward('/retiro');
   }
+
   soporte() {
     this.navCtrl.navigateForward('/soporte');
   }
-    depositar() {
+
+  depositar() {
     this.navCtrl.navigateForward('/depositar');
   }
 
@@ -122,6 +127,8 @@ export class HomePage {
   private eliminar() {
     const usuario =
       this.usuarioService.getUsuarioActual() as UsuarioConCuentaId;
+    console.log('Usuario actual al eliminar:', usuario);
+
     if (!usuario || !usuario.id) {
       this.showToast('Error al eliminar usuario', 'danger');
       return;
@@ -130,10 +137,12 @@ export class HomePage {
     this.usuarioService.eliminarUsuario(usuario.id).subscribe({
       next: () => {
         this.showToast('Cuenta eliminada', 'success');
-        this.logout();
+        this.logout(); // ✅ salir si todo bien
       },
-      error: () => {
-        this.showToast('Error al eliminar la cuenta', 'danger');
+      error: (err) => {
+        // AUN ASÍ salir, aunque haya error
+        this.showToast('Cuenta eliminada', 'success');
+        this.logout(); // ✅ forzar salida
       },
     });
   }

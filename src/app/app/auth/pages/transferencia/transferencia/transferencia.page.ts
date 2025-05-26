@@ -60,7 +60,7 @@ export class TransferenciaPage implements OnInit {
       header: 'Confirmar transferencia',
       message:
         'Estas Seguro De Enviar\n\n' + `$${form.monto}\n\n` +
-        `A ${form.telefonoDestinatario}\n` 
+        `A ${form.telefonoDestinatario}\n`
       ,
       buttons: [
         {
@@ -96,8 +96,12 @@ export class TransferenciaPage implements OnInit {
         const nuevoSaldo = (await this.usuarioService.getSaldo(usuario.id).toPromise()) ?? 0;
         this.usuarioService.setUsuarioActual({
           ...usuario,
-          cuenta: { saldo: nuevoSaldo }
+          cuenta: {
+            ...usuario.cuenta,
+            saldo: nuevoSaldo
+          }
         });
+
       }
 
       this.showAlert('Éxito', mensaje as string);

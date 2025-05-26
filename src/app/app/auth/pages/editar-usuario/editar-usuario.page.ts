@@ -40,18 +40,9 @@ export class EditarUsuarioPage implements OnInit {
     this.usuarioForm = this.fb.group({
       nombre: [usuario.nombre || '', Validators.required],
       apellido: [usuario.apellido || '', Validators.required],
-      correo: [usuario.email || '', [Validators.required, Validators.email]],
+      correo: [usuario.email || '', [Validators.email]],
       telefono: [usuario.telefono || '', Validators.required],
-      fechaNacimiento: [usuario.fechaNacimiento || '', Validators.required],
-      tipoIdentificacion: [
-        usuario.tipoIdentificacion || '',
-        Validators.required,
-      ],
-      numeroIdentificacion: [
-        usuario.numeroIdentificacion || '',
-        Validators.required,
-      ],
-      contrasena: ['', Validators.maxLength(4)],
+      contrasena: [''], // opcional
     });
   }
 
@@ -61,17 +52,20 @@ export class EditarUsuarioPage implements OnInit {
       return;
     }
 
-    const datosActualizados = {
-      id: this.usuario.id,
+    const datosActualizados: any = {
       nombre: this.usuarioForm.value.nombre,
       apellido: this.usuarioForm.value.apellido,
       correo: this.usuarioForm.value.correo,
       telefono: this.usuarioForm.value.telefono,
-      fechaNacimiento: this.usuarioForm.value.fechaNacimiento,
-      tipoIdentificacion: this.usuarioForm.value.tipoIdentificacion,
-      numeroIdentificacion: this.usuarioForm.value.numeroIdentificacion,
-      contrasena: this.usuarioForm.value.contrasena,
     };
+
+    // Agrega contraseña solo si el usuario la escribió
+    if (
+      this.usuarioForm.value.contrasena &&
+      this.usuarioForm.value.contrasena.trim() !== ''
+    ) {
+      datosActualizados.contrasena = this.usuarioForm.value.contrasena;
+    }
 
     this.usuarioService
       .actualizarUsuario(this.usuario.id, datosActualizados)
