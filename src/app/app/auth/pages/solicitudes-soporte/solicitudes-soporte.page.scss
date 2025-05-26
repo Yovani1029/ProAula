@@ -1,0 +1,106 @@
+/* Fondo del contenido */
+ion-content {
+  --background: #f2f5f9;
+}
+
+/* Estilo del header */
+ion-header {
+  ion-toolbar {
+    --background: #0056b3;
+    --color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  ion-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-align: center;
+  }
+}
+
+ion-back-button {
+  --color: white;
+}
+
+/* Lista de tickets */
+ion-list {
+  background: transparent;
+  padding: 0 10px;
+}
+
+ion-item {
+  --background: #ffffff;
+  --border-radius: 12px;
+  --padding-start: 16px;
+  --inner-padding-end: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+ion-label {
+  h2 {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 8px;
+  }
+
+  p {
+    color: #7f8c8d;
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+    line-height: 1.4;
+  }
+
+  small {
+    color: #95a5a6;
+    font-size: 0.85rem;
+  }
+}
+
+/* Mensaje cuando no hay tickets */
+.sinTickets {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  text-align: center;
+
+  ion-text {
+    p {
+      color: #95a5a6;
+      font-size: 1.1rem;
+    }
+  }
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  ion-title {
+    font-size: 1.2rem;
+  }
+
+  ion-item {
+    --padding-start: 12px;
+    --inner-padding-end: 12px;
+    margin-bottom: 12px;
+  }
+
+  ion-label {
+    h2 {
+      font-size: 1.1rem;
+    }
+
+    p {
+      font-size: 0.9rem;
+    }
+
+    small {
+      font-size: 0.8rem;
+    }
+  }
+}

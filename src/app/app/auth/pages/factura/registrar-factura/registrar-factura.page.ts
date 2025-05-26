@@ -33,7 +33,7 @@ export class RegistrarFacturaPage implements OnInit {
   }
 
   registrarFactura() {
-    const usuarioId = Number(localStorage.getItem('usuario_id'));
+    const usuarioId = Number(localStorage.getItem('idUsuario'));
 
     if (!usuarioId || isNaN(usuarioId)) {
       alert('No se encontró el ID del usuario autenticado.');
@@ -46,7 +46,7 @@ export class RegistrarFacturaPage implements OnInit {
 
     const servicioNombre = this.formFactura.value.servicio;
     const montoAleatorio =
-      Math.floor(Math.random() * (500000 - 50000 + 1)) + 50000;
+      Math.floor(Math.random() * (50000 - 5000 + 1)) + 50000;
 
     const datosFactura: any = {
       // Guardamos el nombre del servicio (por ejemplo: "luz", "agua", etc.)
