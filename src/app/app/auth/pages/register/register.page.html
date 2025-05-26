@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
     <ion-title>Registro</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -14,10 +17,10 @@
     <ion-note color="danger" *ngIf="registerForm.get('nombre')?.hasError('pattern')">
       El nombre no debe contener números ni caracteres especiales.
     </ion-note>
-    
+
     <ion-item>
       <ion-label position="floating">Apellido</ion-label>
-      <ion-input formControlName="apellido" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+" inputmode="text"></ion-input>
+      <ion-input formControlName="apellido"></ion-input>
     </ion-item>
     <ion-note color="danger" *ngIf="registerForm.get('apellido')?.hasError('pattern')">
       El apellido no debe contener números ni caracteres especiales.
@@ -33,7 +36,8 @@
 
     <ion-item>
       <ion-label position="floating">Número de identificación</ion-label>
-      <ion-input formControlName="numeroIdentificacion"></ion-input>
+      <ion-input formControlName="numeroIdentificacion" (keypress)="onlyNumbers($event)">
+      </ion-input>
     </ion-item>
     <ion-note color="danger" *ngIf="registerForm.get('numeroIdentificacion')?.hasError('pattern')">
       El número de identificación debe contener solo números.
@@ -41,21 +45,35 @@
 
     <ion-item>
       <ion-label position="floating">Teléfono</ion-label>
-      <ion-input formControlName="telefono" type="tel"></ion-input>
+      <ion-input formControlName="telefono" type="tel" maxlength="10"
+        (ionInput)="checkMaxLength($event, 'telefono', 10)" (keypress)="onlyNumbers($event)"
+        [class.valid]="registerForm.get('telefono')?.value?.length === 10">
+      </ion-input>
     </ion-item>
-    <ion-note color="danger" *ngIf="telefonoInvalid">Debe tener 10 dígitos</ion-note>
+    <ion-note color="danger" *ngIf="registerForm.get('telefono')?.invalid && registerForm.get('telefono')?.touched">
+      Debe tener exactamente 10 dígitos
+    </ion-note>
 
     <ion-item>
       <ion-label position="floating">Correo electrónico</ion-label>
-      <ion-input formControlName="correo" type="email"></ion-input>
+      <ion-input formControlName="correo" type="email" [disabled]="emailValidationInProgress"></ion-input>
+      <ion-note color="danger"
+        *ngIf="registerForm.get('correo')?.errors?.['required'] && registerForm.get('correo')?.touched">
+        El correo es obligatorio
+      </ion-note>
+      <ion-note color="danger"
+        *ngIf="registerForm.get('correo')?.errors?.['email'] && !registerForm.get('correo')?.errors?.['required']">
+        Formato de correo inválido
+      </ion-note>
+      <ion-note color="danger" *ngIf="registerForm.get('correo')?.errors?.['correoInvalido']">
+        El correo no puede recibir mensajes
+      </ion-note>
+      <ion-spinner *ngIf="emailValidationInProgress" name="crescent"></ion-spinner>
     </ion-item>
 
     <ion-item>
       <ion-label position="floating">Fecha de nacimiento</ion-label>
-      <ion-datetime
-        formControlName="fechaNacimiento"
-        display-format="YYYY-MM-DD"
-        presentation="date">
+      <ion-datetime formControlName="fechaNacimiento" display-format="YYYY-MM-DD" presentation="date">
       </ion-datetime>
     </ion-item>
     <ion-note color="danger" *ngIf="fechaNacimientoErrors && fechaNacimientoErrors['fechaFutura']">
@@ -67,9 +85,14 @@
 
     <ion-item>
       <ion-label position="floating">Contraseña</ion-label>
-      <ion-input formControlName="contrasena" type="password"></ion-input>
+      <ion-input formControlName="contrasena" type="password" maxlength="4"
+        (ionInput)="checkMaxLength($event, 'contrasena', 4)" (keypress)="onlyNumbers($event)"
+        [class.valid]="registerForm.get('contrasena')?.value?.length === 4">
+      </ion-input>
     </ion-item>
-    <ion-note color="danger" *ngIf="contrasenaInvalid">Debe tener 4 dígitos numéricos</ion-note>
+    <ion-note color="danger" *ngIf="registerForm.get('contrasena')?.invalid && registerForm.get('contrasena')?.touched">
+      Debe tener exactamente 4 dígitos numéricos
+    </ion-note>
 
     <ion-button expand="full" type="submit" [disabled]="registerForm.invalid">Registrarse</ion-button>
   </form>

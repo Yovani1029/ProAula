@@ -27,23 +27,38 @@ export class LoginPage {
     private usuarioService: UsuarioService
   ) {
     this.loginForm = this.fb.group({
-      telefono: ['', [Validators.required]],
+      telefono: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
       contrasena: ['', [Validators.required, Validators.pattern('^[0-9]{4}$')]],
     });
   }
 
+  onPhoneInput(event: any) {
+    const value: string = event.detail.value.replace(/\D/g, ''); // Solo permite números
+    if (value.length > 10) {
+      this.loginForm
+        .get('telefono')
+        ?.setValue(value.substring(0, 10), { emitEvent: false });
+      this.showToast('El teléfono debe tener solo 10 dígitos.');
+    } else {
+      this.loginForm.get('telefono')?.setValue(value, { emitEvent: false });
+    }
+  }
+
   onPasswordInput(event: any) {
-    const value: string = event.detail.value;
+    const value: string = event.detail.value.replace(/\D/g, ''); // Solo permite números
     if (value.length > 4) {
       this.loginForm
         .get('contrasena')
         ?.setValue(value.substring(0, 4), { emitEvent: false });
       this.showToast('La contraseña debe tener solo 4 dígitos.');
+    } else {
+      this.loginForm.get('contrasena')?.setValue(value, { emitEvent: false });
     }
   }
 
   async onSubmit() {
     if (this.loginForm.invalid) {
+      this.markFormGroupTouched(this.loginForm);
       this.showToast('Por favor, completa los campos correctamente.');
       return;
     }
@@ -60,9 +75,7 @@ export class LoginPage {
         await loading.dismiss();
         if (usuario) {
           this.usuarioService.setUsuarioActual(usuario);
-
           localStorage.setItem('idUsuario', usuario.id.toString());
-
           localStorage.setItem('telefono', usuario.telefono);
 
           this.showToast(
@@ -78,6 +91,15 @@ export class LoginPage {
         await loading.dismiss();
         this.showToast('Error de conexión con el servidor.');
       },
+    });
+  }
+
+  private markFormGroupTouched(formGroup: FormGroup) {
+    Object.values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+      if (control instanceof FormGroup) {
+        this.markFormGroupTouched(control);
+      }
     });
   }
 

@@ -1,4 +1,3 @@
-/* Fondo con un degradado elegante y moderno para un banco digital */
 .loading-container {
     display: flex;
     justify-content: center;
@@ -23,12 +22,7 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Sombra para un efecto de profundidad */
     animation: fadeIn 1s ease-in-out; /* Animación de aparición */
   }
-  
-  .logo {
-    width: 180px; /* Ajusta el tamaño de tu logo */
-    margin-bottom: 30px;
-    animation: bounce 2s infinite; /* Efecto de rebote en el logo */
-  }
+
   
   /* Estilo para el título (Bienvenido a BankNet) */
   h1 {
@@ -38,6 +32,8 @@
     font-family: 'Roboto', sans-serif; /* Tipografía moderna y limpia */
     letter-spacing: 1px; /* Espaciado entre letras */
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra en el texto */
+     animation: bounce 2s infinite; /* Efecto de rebote en el logo */
+
   }
   
   /* Estilo para el spinner */
