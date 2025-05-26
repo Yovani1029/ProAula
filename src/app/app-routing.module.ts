@@ -71,6 +71,10 @@ const routes: Routes = [
     path: 'depositar',
     loadChildren: () => import('./app/auth/pages/depositar/depositar.module').then( m => m.DepositarPageModule)
   },
+  {
+    path: 'soporte',
+    loadChildren: () => import('./app/auth/pages/soporte/soporte.module').then( m => m.SoportePageModule)
+  },
 ];
 
 @NgModule({

@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Soporte Técnico</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding soporte-content">
+  <form [formGroup]="ticketForm" (ngSubmit)="enviarTicket()">
+    <ion-item>
+      <ion-label position="floating">Nombre <span class="required">*</span></ion-label>
+      <ion-input formControlName="nombreContacto" readonly></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Email <span class="required">*</span></ion-label>
+      <ion-input type="email" formControlName="correoContacto"></ion-input>
+    </ion-item>
+    <ion-note slot="error" *ngIf="ticketForm.get('correoContacto')?.errors?.['email']" color="danger">
+      Email inválido
+    </ion-note>
+
+    <ion-item>
+      <ion-label position="floating">Asunto <span class="required">*</span></ion-label>
+      <ion-input formControlName="asunto"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Mensaje <span class="required">*</span></ion-label>
+      <ion-textarea formControlName="mensaje" rows="6" autoGrow="true"></ion-textarea>
+    </ion-item>
+
+    <ion-button 
+      type="submit" 
+      expand="block" 
+      [disabled]="ticketForm.invalid || enviando"
+    >
+      <ion-spinner *ngIf="enviando" name="lines-small" slot="start"></ion-spinner>
+      {{ enviando ? 'Enviando...' : 'Enviar Ticket' }}
+    </ion-button>
+  </form>
+</ion-content>
