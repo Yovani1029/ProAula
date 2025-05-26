@@ -84,15 +84,16 @@
     </ion-note>
 
     <ion-item>
-      <ion-label position="floating">Contraseña</ion-label>
+      <ion-label position="floating">Contraseña (4 dígitos numéricos)</ion-label>
       <ion-input formControlName="contrasena" type="password" maxlength="4"
         (ionInput)="checkMaxLength($event, 'contrasena', 4)" (keypress)="onlyNumbers($event)"
         [class.valid]="registerForm.get('contrasena')?.value?.length === 4">
       </ion-input>
     </ion-item>
     <ion-note color="danger" *ngIf="registerForm.get('contrasena')?.invalid && registerForm.get('contrasena')?.touched">
-      Debe tener exactamente 4 dígitos numéricos
+      La contraseña debe contener exactamente 4 dígitos numéricos.
     </ion-note>
+
 
     <ion-button expand="full" type="submit" [disabled]="registerForm.invalid">Registrarse</ion-button>
   </form>

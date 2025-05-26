@@ -53,27 +53,23 @@ export class RegisterPage {
     });
   }
 
-  // Validador personalizado que acepta correos de dominios populares
   emailValidator(control: any) {
     const email = control.value;
     if (!email) return null;
 
-    // Validación básica de formato
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailPattern.test(email)) {
       return { invalidFormat: true };
     }
 
-    // Verificar si es de un dominio whitelisted
     const domain = email.split('@')[1];
     if (this.whitelistedDomains.includes(domain)) {
-      return null; // Aceptar inmediatamente dominios conocidos
+      return null;
     }
 
     return null;
   }
 
-  // Método para limitar longitud máxima
   checkMaxLength(event: any, fieldName: string, maxLength: number) {
     const input = event.target as HTMLInputElement;
     const value = input.value;
@@ -84,7 +80,6 @@ export class RegisterPage {
     }
   }
 
-  // Método para permitir solo números
   onlyNumbers(event: KeyboardEvent) {
     const pattern = /[0-9]/;
     const inputChar = String.fromCharCode(event.charCode);
@@ -108,7 +103,6 @@ export class RegisterPage {
     const emailControl = this.registerForm.get('correo');
     const email = emailControl?.value;
 
-    // Validación local primero
     if (emailControl?.hasError('email') || emailControl?.hasError('invalidFormat')) {
       return;
     }
@@ -116,10 +110,8 @@ export class RegisterPage {
     this.emailValidationInProgress = true;
 
     try {
-      // Verificar primero si es un dominio whitelisted
       const domain = email.split('@')[1];
       if (this.whitelistedDomains.includes(domain)) {
-        // Si es dominio whitelisted, saltar verificación API
         this.submitRegistration();
         return;
       }
@@ -129,7 +121,6 @@ export class RegisterPage {
       
       const response: any = await this.http.get(url).toPromise();
 
-      // Verificación básica pero permitiendo más casos
       if (response.is_valid_format?.value === false || response.deliverability === 'UNDELIVERABLE') {
         emailControl?.setErrors({ correoInvalido: true });
         return;
@@ -139,7 +130,6 @@ export class RegisterPage {
 
     } catch (error: any) {
       console.error('Error validando correo:', error);
-      // Si falla la API, permitir el registro pero mostrar advertencia
       this.submitRegistration(true);
     } finally {
       this.emailValidationInProgress = false;

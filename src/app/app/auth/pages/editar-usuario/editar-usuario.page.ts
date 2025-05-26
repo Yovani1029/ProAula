@@ -38,11 +38,26 @@ export class EditarUsuarioPage implements OnInit {
     this.usuario = usuario;
 
     this.usuarioForm = this.fb.group({
-      nombre: [usuario.nombre || '', Validators.required],
-      apellido: [usuario.apellido || '', Validators.required],
-      correo: [usuario.email || '', [Validators.email]],
-      telefono: [usuario.telefono || '', Validators.required],
-      contrasena: [''], // opcional
+      nombre: [
+        usuario.nombre || '',
+        [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)],
+      ],
+      apellido: [
+        usuario.apellido || '',
+        [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)],
+      ],
+      correo: [
+        usuario.email || '',
+        [Validators.required, Validators.email],
+      ],
+      telefono: [
+        usuario.telefono || '',
+        [Validators.required, Validators.pattern(/^\d{10}$/)],
+      ],
+      contrasena: [
+        '', // opcional
+        [Validators.pattern(/^\d{4}$/)],
+      ],
     });
   }
 
@@ -59,7 +74,6 @@ export class EditarUsuarioPage implements OnInit {
       telefono: this.usuarioForm.value.telefono,
     };
 
-    // Agrega contraseña solo si el usuario la escribió
     if (
       this.usuarioForm.value.contrasena &&
       this.usuarioForm.value.contrasena.trim() !== ''
@@ -71,9 +85,6 @@ export class EditarUsuarioPage implements OnInit {
       .actualizarUsuario(this.usuario.id, datosActualizados)
       .subscribe({
         next: async () => {
-          // Limpia el usuario actual (opcional pero recomendado)
-
-          // Muestra alerta
           const alert = await this.alertCtrl.create({
             header: 'Actualización exitosa',
             message:
@@ -111,4 +122,12 @@ export class EditarUsuarioPage implements OnInit {
     });
     await toast.present();
   }
+
+  onlyNumbers(event: KeyboardEvent) {
+  const charCode = event.key;
+  if (!/^\d$/.test(charCode)) {
+    event.preventDefault();
+  }
+}
+
 }

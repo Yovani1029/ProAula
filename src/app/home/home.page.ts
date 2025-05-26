@@ -3,6 +3,7 @@ import {
   NavController,
   ToastController,
   AlertController,
+  ActionSheetController,
 } from '@ionic/angular';
 import { UsuarioService } from 'src/app/app/core/services/usuario.service';
 import {
@@ -43,7 +44,8 @@ export class HomePage {
     private toastCtrl: ToastController,
     private alertCtrl: AlertController,
     private usuarioService: UsuarioService,
-    private transaccionService: TransaccionService
+    private transaccionService: TransaccionService,
+    private actionSheetCtrl: ActionSheetController
   ) {}
 
   ionViewWillEnter() {
@@ -89,9 +91,34 @@ export class HomePage {
     this.navCtrl.navigateForward('/retirar');
   }
 
-  soporte() {
-    this.navCtrl.navigateForward('/soporte');
-  }
+ async soporte() {
+  const actionSheet = await this.actionSheetCtrl.create({
+    header: 'Opciones de Soporte',
+    buttons: [
+      {
+        text: 'Enviar solicitud de soporte',
+        icon: 'chatbox-ellipses-outline',
+        handler: () => {
+          this.router.navigate(['/soporte']);
+        }
+      },
+      {
+        text: 'Ver solicitudes de soporte',
+        icon: 'list-outline',
+        handler: () => {
+          this.router.navigate(['/solicitudes-soporte']);
+        }
+      },
+      {
+        text: 'Cancelar',
+        icon: 'close',
+        role: 'cancel'
+      }
+    ]
+  });
+  await actionSheet.present();
+}
+
 
   depositar() {
     this.navCtrl.navigateForward('/depositar');
