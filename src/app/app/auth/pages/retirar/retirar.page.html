@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Retiro con Verificación</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-md="8" size-lg="6">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title class="ion-text-center">
+              {{ step === 1 ? 'Solicitar Código' : 'Confirmar Retiro' }}
+            </ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+
+            <form *ngIf="step === 1" [formGroup]="retiroForm">
+              <div class="ion-text-center ion-margin-bottom">
+                <p>
+                  Para realizar un retiro, primero debemos validar tu identidad.
+                  Te enviaremos un código de verificación al correo registrado.
+                </p>
+              </div>
+
+              <ion-item>
+                <ion-label position="floating">Teléfono registrado</ion-label>
+                <ion-input type="text" formControlName="telefono" readonly></ion-input>
+              </ion-item>
+
+              <ion-button expand="block" class="ion-margin-top" (click)="solicitarCodigo()"
+                [disabled]="!retiroForm.get('telefono')?.value || cargando">
+                <ion-spinner *ngIf="cargando" name="crescent"></ion-spinner>
+                {{ cargando ? 'Enviando...' : 'Solicitar código' }}
+              </ion-button>
+            </form>
+
+            <form *ngIf="step === 2" [formGroup]="retiroForm">
+              <ion-item>
+                <ion-label position="floating">Monto a retirar</ion-label>
+                <ion-input type="number" formControlName="monto" required></ion-input>
+              </ion-item>
+
+              <ion-item class="ion-margin-top">
+                <ion-label position="floating">Código de verificación</ion-label>
+                <ion-input type="text" maxlength="6" formControlName="codigo" required></ion-input>
+              </ion-item>
+
+              <ion-grid class="ion-margin-top">
+                <ion-row>
+                  <ion-col>
+                    <ion-button expand="block" color="light" (click)="step = 1">
+                      Volver
+                    </ion-button>
+                  </ion-col>
+                  <ion-col>
+                    <ion-button expand="block" (click)="realizarRetiro()"
+                      [disabled]="retiroForm.invalid || cargando">
+                      <ion-spinner *ngIf="cargando" name="crescent"></ion-spinner>
+                      {{ cargando ? 'Procesando...' : 'Confirmar' }}
+                    </ion-button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </form>
+
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -36,13 +36,10 @@
     <ion-button class="action-button" (click)="irARetiro()">
       <ion-icon name="cash" slot="start"></ion-icon> Retirar
     </ion-button>
-        <ion-button class="action-button" (click)="depositar()">
+    <ion-button class="action-button" (click)="depositar()">
       <ion-icon name="cash" slot="start"></ion-icon> Depositar
     </ion-button>
-    <ion-button
-      class="action-button"
-      (click)="mostrarConfiguracion = !mostrarConfiguracion"
-    >
+    <ion-button class="action-button" (click)="mostrarConfiguracion = !mostrarConfiguracion">
       <ion-icon name="settings" slot="start"></ion-icon> Configuración
     </ion-button>
     <ion-button class="action-button" (click)="soporte()">
@@ -61,16 +58,27 @@
 
   <div *ngIf="segmento === 'movimientos'">
     <ion-list *ngIf="movimientos.length; else sinMovimientos">
-      <ion-item *ngFor="let mov of movimientos">
+      <ion-item class="movimiento-item" *ngFor="let mov of movimientos">
         <ion-label>
           <h2>{{ mov.tipoTransaccion }}</h2>
           <p>{{ mov.descripcion }}</p>
           <p>{{ mov.fechaTransaccion | date:'short' }}</p>
         </ion-label>
-        <ion-badge [color]="mov.monto >= 0 ? 'success' : 'danger'" slot="end">
-          {{ mov.monto >= 0 ? '+' : '' }}${{ mov.monto | number:'1.2-2' }}
-        </ion-badge>
+        <div class="movimiento-actions">
+          <ion-badge
+            [color]="mov.tipoTransaccion === 'RETIRO' || mov.tipoTransaccion === 'TRANSFERENCIA ENVIADA' ? 'danger' : 'success'">
+            {{ (mov.tipoTransaccion === 'RETIRO' || mov.tipoTransaccion === 'TRANSFERENCIA ENVIADA') ? '-' : '+' }}${{
+            mov.monto | number:'1.2-2' }}
+          </ion-badge>
+
+          <ion-button size="small" fill="clear" (click)="descargarComprobante(mov)">
+            <ion-icon slot="icon-only" name="download-outline"></ion-icon>
+          </ion-button>
+        </div>
       </ion-item>
+
+
+
     </ion-list>
     <ng-template #sinMovimientos>
       <ion-text color="medium">

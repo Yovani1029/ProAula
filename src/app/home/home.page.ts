@@ -10,6 +10,8 @@ import {
   Transaccion,
 } from 'src/app/app/core/services/transaccion.service';
 import { Router } from '@angular/router';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 interface UsuarioConCuentaId {
   id: number;
@@ -84,7 +86,7 @@ export class HomePage {
   }
 
   irARetiro() {
-    this.navCtrl.navigateForward('/retiro');
+    this.navCtrl.navigateForward('/retirar');
   }
 
   soporte() {
@@ -127,7 +129,6 @@ export class HomePage {
   private eliminar() {
     const usuario =
       this.usuarioService.getUsuarioActual() as UsuarioConCuentaId;
-    console.log('Usuario actual al eliminar:', usuario);
 
     if (!usuario || !usuario.id) {
       this.showToast('Error al eliminar usuario', 'danger');
@@ -137,12 +138,11 @@ export class HomePage {
     this.usuarioService.eliminarUsuario(usuario.id).subscribe({
       next: () => {
         this.showToast('Cuenta eliminada', 'success');
-        this.logout(); // ✅ salir si todo bien
+        this.logout();
       },
-      error: (err) => {
-        // AUN ASÍ salir, aunque haya error
+      error: () => {
         this.showToast('Cuenta eliminada', 'success');
-        this.logout(); // ✅ forzar salida
+        this.logout();
       },
     });
   }
@@ -161,5 +161,46 @@ export class HomePage {
       color,
     });
     await toast.present();
+  }
+
+  async descargarComprobante(transaccion: Transaccion) {
+    const alert = await this.alertCtrl.create({
+      header: 'Descargar comprobante',
+      message: '¿Deseas descargar el comprobante de esta transacción?',
+      buttons: [
+        { text: 'Cancelar', role: 'cancel' },
+        {
+          text: 'Descargar',
+          handler: () => this.generarPDF(transaccion),
+        },
+      ],
+    });
+    await alert.present();
+  }
+
+  private generarPDF(transaccion: Transaccion) {
+    const doc = new jsPDF();
+
+    doc.setFontSize(18);
+    doc.text('Comprobante de Transacción', 14, 22);
+
+    const datos = [
+      ['Tipo', transaccion.tipoTransaccion],
+      ['Descripción', transaccion.descripcion],
+      ['Monto', `$${transaccion.monto.toFixed(2)}`],
+      ['Fecha', new Date(transaccion.fechaTransaccion).toLocaleString()],
+    ];
+
+    autoTable(doc, {
+      startY: 30,
+      head: [['Campo', 'Valor']],
+      body: datos,
+    });
+
+    const fecha = new Date(transaccion.fechaTransaccion)
+      .toISOString()
+      .slice(0, 19)
+      .replace(/[-T:]/g, '');
+    doc.save(`comprobante-${fecha}.pdf`);
   }
 }

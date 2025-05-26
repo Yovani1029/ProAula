@@ -40,3 +40,30 @@
     margin: 10px 0;
   }
 }
+.movimiento-item {
+  --padding-start: 16px;
+  --inner-padding-end: 0px;
+  --background: #fff;
+  margin: 8px 0;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  align-items: center;
+}
+
+/* Botón de descarga más grande */
+.movimiento-actions ion-button {
+  --padding-start: 10px;
+  --padding-end: 10px;
+  --icon-size: 24px;
+  font-size: 16px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--ion-color-primary);
+  color: white;
+}
+
+.movimiento-actions ion-button:hover {
+  filter: brightness(1.1);
+}
+

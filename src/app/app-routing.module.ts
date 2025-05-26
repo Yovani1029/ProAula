@@ -75,6 +75,10 @@ const routes: Routes = [
     path: 'soporte',
     loadChildren: () => import('./app/auth/pages/soporte/soporte.module').then( m => m.SoportePageModule)
   },
+  {
+    path: 'retirar',
+    loadChildren: () => import('./app/auth/pages/retirar/retirar.module').then( m => m.RetirarPageModule)
+  },
 ];
 
 @NgModule({
